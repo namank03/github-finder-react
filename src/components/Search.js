@@ -1,11 +1,17 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-export default function Search({ searchUser, clearUsers, users }) {
+export default function Search({ searchUser, clearUsers, users, setAlert, setFound }) {
   const [searchTerm, setSearchTerm] = useState("");
   const formSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm.length) searchUser(searchTerm);
+    if (searchTerm.length) {
+      searchUser(searchTerm);
+    } else {
+      clearUsers();
+      setFound(true);
+      setAlert("Please enter a search term");
+    }
   };
   return (
     <form
@@ -37,11 +43,9 @@ export default function Search({ searchUser, clearUsers, users }) {
 }
 
 Search.propTypes = {
-  clearUsers: PropTypes.func,
+  clearUsers: PropTypes.func.isRequired,
   searchUser: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  setFound: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-Search.defaultProps = {
-  clearUsers: PropTypes.func,
 };

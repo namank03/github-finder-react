@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
+import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Spinner from "./components/layout/Spinner";
 import Search from "./components/Search";
@@ -62,11 +63,7 @@ function App() {
         setAlert={setAlert}
         setFound={setFound}
       />
-      {alert && (
-        <h1 className="border-t-4 border-red-400 p-16 m-4 text-center text-bold text-red-700 text-xl">
-          {alert}
-        </h1>
-      )}
+      {alert && <Alert alert={alert} />}
       {!loading ? <Users users={users} found={found} /> : <Spinner />}
     </div>
   );

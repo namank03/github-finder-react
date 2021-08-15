@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "baseUrl": "/Users/namankhandelwal/Desktop/react-projects/react-github-finder",
+        "checkJs": true,
+        "jsx": "react"
+    }
+}

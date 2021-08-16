@@ -12,6 +12,7 @@ export default function Search({ searchUser, clearUsers, users, setAlert, setFou
       setFound(true);
       setAlert("Please enter a search term");
     }
+    setSearchTerm("");
   };
   return (
     <form
@@ -34,7 +35,7 @@ export default function Search({ searchUser, clearUsers, users, setAlert, setFou
         <button
           type="button"
           className="border-2 rounded py-1 text-green-700 border-green-700 px-6 hover:bg-green-700 hover:text-gray-100"
-          onClick={clearUsers}>
+          onClick={() => clearUsers(setSearchTerm)}>
           Clear
         </button>
       )}

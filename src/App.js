@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import Alert from "./components/layout/Alert";
 import Navbar from "./components/layout/Navbar";
 import Spinner from "./components/layout/Spinner";
+import About from "./components/pages/About";
+import User from "./components/User";
 import Search from "./components/Search";
 import Users from "./components/Users";
 
@@ -34,8 +37,10 @@ function App() {
     getData();
   }, []);
 
-  const clearUsers = () => {
+  // eslint-disable-next-line no-unused-vars
+  const clearUsers = (setSearchTerm) => {
     setUsers([]);
+    // setSearchTerm("");
   };
 
   const searchUser = async (searchTerm) => {
@@ -54,18 +59,32 @@ function App() {
   };
 
   return (
-    <div>
-      <Navbar title="Github-Finder" icon="fab fa-github-square" />
-      <Search
-        searchUser={searchUser}
-        clearUsers={clearUsers}
-        users={users}
-        setAlert={setAlert}
-        setFound={setFound}
-      />
-      {alert && <Alert alert={alert} />}
-      {!loading ? <Users users={users} found={found} /> : <Spinner />}
-    </div>
+    <Router>
+      <div>
+        <Navbar title="Github-Finder" icon="fab fa-github-square" />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <>
+                <Search
+                  searchUser={searchUser}
+                  clearUsers={clearUsers}
+                  users={users}
+                  setAlert={setAlert}
+                  setFound={setFound}
+                />
+                {alert && <Alert alert={alert} />}
+                {!loading ? <Users users={users} found={found} /> : <Spinner />}
+              </>
+            )}
+          />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/user/:name" render={(props) => <User {...props} />} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
